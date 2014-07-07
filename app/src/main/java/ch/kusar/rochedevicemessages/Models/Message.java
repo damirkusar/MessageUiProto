@@ -19,11 +19,17 @@ public class Message {
 
     public int getImageId() {
 
-        if (this.message.contains("Movie1")){
-            return R.drawable.ic_launcher;
+        if (this.getSeverity().equals(SeverityLevel.Info.toString())){
+            return R.drawable.ic_label_info;
+        }
+        if (this.getSeverity().equals(SeverityLevel.Warning.toString())){
+            return R.drawable.ic_label_warning;
+        }
+        if (this.getSeverity().equals(SeverityLevel.Alarm.toString())){
+            return R.drawable.ic_label_alarm;
         }
 
-        return R.drawable.ic_launcher;
+        return R.drawable.ic_label_info;
     }
 
     public String getDesc() {
