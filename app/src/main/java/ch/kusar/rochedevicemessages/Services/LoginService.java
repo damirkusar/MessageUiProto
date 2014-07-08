@@ -12,6 +12,6 @@ public class LoginService extends Application {
             return true;
         }
 
-        return false;
+        return true;
     }
 }

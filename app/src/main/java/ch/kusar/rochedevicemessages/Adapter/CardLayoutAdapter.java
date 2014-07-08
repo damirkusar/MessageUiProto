@@ -26,8 +26,7 @@ public class CardLayoutAdapter extends ArrayAdapter<Message> {
 
     public class ViewHolder {
         ImageView image;
-        TextView title;
-        TextView description;
+        TextView message;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -38,16 +37,14 @@ public class CardLayoutAdapter extends ArrayAdapter<Message> {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_cardlayout, null);
             holder = new ViewHolder();
-            holder.image = (ImageView) convertView.findViewById(R.id.list_image);
-            holder.title = (TextView) convertView.findViewById(R.id.title);
-            holder.description = (TextView) convertView.findViewById(R.id.description);
+            holder.image = (ImageView) convertView.findViewById(R.id.overview_image);
+            holder.message = (TextView) convertView.findViewById(R.id.overview_message);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
 
         holder.image.setImageResource(message.getImageId());
-        holder.title.setText(message.getMessage());
-        holder.description.setText(message.getDesc());
+        holder.message.setText(message.getMessage());
 
         return convertView;
     }

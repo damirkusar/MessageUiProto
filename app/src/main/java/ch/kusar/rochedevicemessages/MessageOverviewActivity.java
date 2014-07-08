@@ -2,11 +2,13 @@ package ch.kusar.rochedevicemessages;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,10 +22,14 @@ import ch.kusar.rochedevicemessages.R;
 import ch.kusar.rochedevicemessages.Services.MessageService;
 
 public class MessageOverviewActivity extends Activity {
-    private MessageService messageService;
+    public static final String DETAIL_MESSAGE = "DETAIL_MESSAGE";
 
-    public MessageOverviewActivity(){
+    private MessageService messageService;
+    private ArrayList<Message> list;
+
+    public MessageOverviewActivity() {
         this.messageService = new MessageService();
+        this.list = messageService.getMessages();
     }
 
     @Override
@@ -35,7 +41,6 @@ public class MessageOverviewActivity extends Activity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#33b5e5")));
 
         ListView lv = (ListView) findViewById(R.id.messageList);
-        final ArrayList<Message> list = messageService.getMessages();
 
         CardLayoutAdapter adapter = new CardLayoutAdapter(getApplicationContext(), R.layout.list_cardlayout, list);
         lv.setAdapter(adapter);
@@ -44,10 +49,13 @@ public class MessageOverviewActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(), "You Clicked at " + list.get(position).getMessage(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MessageDetailActivity.class);
+                intent.putExtra(DETAIL_MESSAGE, list.get(position));
+                startActivity(intent);
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

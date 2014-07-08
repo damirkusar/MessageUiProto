@@ -1,5 +1,6 @@
 package ch.kusar.rochedevicemessages.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import ch.kusar.rochedevicemessages.R;
@@ -7,7 +8,7 @@ import ch.kusar.rochedevicemessages.R;
 /**
  * Created by ku5ar on 07.07.14.
  */
-public class Message {
+public class Message implements Serializable{
     private String message;
     private String description;
     private String date;
