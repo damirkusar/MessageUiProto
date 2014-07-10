@@ -13,6 +13,8 @@ import ch.kusar.rochedevicemessages.R;
 
 public class MessageDetailActivity extends Activity {
 
+    private Message message;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +23,9 @@ public class MessageDetailActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        Message message = (Message) intent.getExtras().getSerializable(MessageOverviewActivity.DETAIL_MESSAGE);
+        this.message = (Message) intent.getExtras().getSerializable(MessageOverviewActivity.DETAIL_MESSAGE);
 
-        this.fillDataForLayout(message);
+        this.fillDataForLayout(this.message);
     }
 
     private void fillDataForLayout(Message messageObject) {
@@ -41,22 +43,25 @@ public class MessageDetailActivity extends Activity {
     }
 
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if (id == R.id.action_refresh) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_removeAll) {
+            Intent returnIntent = new Intent();
+            setResult(android.app.Activity.RESULT_OK, returnIntent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

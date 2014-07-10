@@ -26,9 +26,11 @@ import ch.kusar.rochedevicemessages.Services.MessageService;
 
 public class MessageOverviewActivity extends Activity {
     public static final String DETAIL_MESSAGE = "DETAIL_MESSAGE";
+    public static final int PICK_CONTACT_REQUEST = 1;
 
     private MessageService messageService;
     private ArrayList<Message> list;
+    public Message detailMessageToShow;
     private CardLayoutAdapter cardLayoutAdapter;
 
     private ActionMode mActionMode;
@@ -36,6 +38,7 @@ public class MessageOverviewActivity extends Activity {
     public MessageOverviewActivity() {
         this.messageService = new MessageService();
         this.list = messageService.getMessages();
+        this.detailMessageToShow = null;
     }
 
     @Override
@@ -54,12 +57,16 @@ public class MessageOverviewActivity extends Activity {
         lv.setAdapter(this.cardLayoutAdapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
+                detailMessageToShow = list.get(position);
+
                 Intent intent = new Intent(getApplicationContext(), MessageDetailActivity.class);
-                intent.putExtra(DETAIL_MESSAGE, list.get(position));
-                startActivity(intent);
+                intent.putExtra(DETAIL_MESSAGE, detailMessageToShow);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);
             }
         });
 
@@ -71,6 +78,15 @@ public class MessageOverviewActivity extends Activity {
             }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_CONTACT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                this.cardLayoutAdapter.remove(detailMessageToShow);
+            }
+        }
     }
 
     private void onListItemSelect(int position) {
