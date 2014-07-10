@@ -18,19 +18,20 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.kusar.demoandroidintents.MainActivity" />
         </activity>
         <activity
             android:name=".MessageOverviewActivity"
-            android:label="@string/title_activity_message_overview" >
+            android:label="@string/title_activity_message_overview"
+            android:parentActivityName=".LoginActivity">
         </activity>
         <activity
             android:name=".MessageDetailActivity"
-            android:label="@string/title_activity_message_detail" >
+            android:label="@string/title_activity_message_detail"
+            android:parentActivityName=".MessageOverviewActivity">
         </activity>
     </application>
 

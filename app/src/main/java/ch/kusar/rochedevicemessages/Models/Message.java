@@ -13,9 +13,10 @@ public class Message implements Serializable{
     private String description;
     private String date;
     private String severity;
+    private boolean confirmed;
 
     public Message(){
-
+        this.confirmed = false;
     }
 
     public int getImageId() {
@@ -68,5 +69,13 @@ public class Message implements Serializable{
     @Override
     public String toString() {
         return message + "\n" + description;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }
